@@ -57,6 +57,6 @@ print(meglitinides_measurement)
 # exercise 2.2 Get the average runtime per month for the
 # equipments that measured quantities of sulfonylureas
 # and of biguanide that are greater than meglitinides_measurement
-avg_monthly_runtime = None  # dataframe
+avg_monthly_runtime = "Create conflict" # dataframe
 
 # your solution here
