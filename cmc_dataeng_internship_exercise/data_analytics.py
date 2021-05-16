@@ -48,5 +48,15 @@ meglitinides_measurement = equipment_measurements.loc[keys, compound]  # float
 # equipments that measured quantities of sulfonylureas
 # and of biguanide that are greater than meglitinides_measurement
 avg_monthly_runtime = None  # dataframe
-
+'''
+Solutionn 2.2
+First, using the equipment_measurements dataframe, only those rows were selected
+for which the measured quantities of sulfonylureas and biguanide were greater than 
+the meglitinides_measurement computed before.
+Then the resulting dataframe was grouped according to the sample month and the mean was 
+computed using the agg function
+'''
 # your solution here
+equipment_measurements_filtered = equipment_measurements[(equipment_measurements['biguanide']>meglitinides_measurement) & equipment_measurements['sulfonylureas']>meglitinides_measurement]
+avg_monthly_runtime = equipment_measurements_filtered.groupby('sample_month').agg(['mean'])['runtime']
+print(avg_monthly_runtime)
