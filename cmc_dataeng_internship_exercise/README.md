@@ -18,7 +18,10 @@ Should you have any questions, please contact Diogo at 31443612, the 14-05-2012 
 
 A team of chemists needs you to securely clone this repo with an SSH key. Show that you've successfuly cloned and pushed to your cloned public repo by sending us its url. 
 
-*your explanation goes here, include prints wherever you find it appropriate*
+*Solution 1.1*
+For this an SSH Key pair was needed which was generated locally. Then, `git clone` was used to securely clone the repo using the key generated. 
+
+![alt text](public/1_1.JPG)
 
 ### exercise 1.2 Git Ops
 
@@ -42,7 +45,9 @@ All your edits to this file should me made on the `readme` branch.
 
 After you have finished your exercises, merge to `dev` and then to `main`. We'll be checking the last push before 01:10, 16-05-2021.
 
-*your explanation goes here, include prints wherever you find it appropriate*
+*Solution 1.2*
+The branches were created as required.
+A conflict was created for Excercise22, by first updating the solution for Excercice22. Then another branch with thee name conflicting_branch was created and here a local variable called avg_monthly_runtime was modified. Since this had a different value in the original solution for 2.2, changing this value created a conflict *while trying to merge this branch and Excercise22 branch to dev*. The conflict was resolved by choosing the value from Excercise22 (originally set to None). 
 
 ## exercise 1.3: Packages
 
@@ -54,7 +59,10 @@ Deploy a python package named `cmc_dataeng_internship_<your-name>` to PyPi. We'l
 Coding for our patients.
 ```
 
-*your explanation goes here, include prints wherever you find it appropriate or code snippets*
+*Solution: `pip install cmc_dataeng_internship_avneetkaur`*
+
+![alt text](public/1_3.JPG)
+
 
 ## exercise 2 Data Analytics
  You'll find a simple pandas exercise in `data_analytics.py`. The code you find is to be left untouched. You should replace only the lines where you read `# your solution here`. As a hint, your `equipment_measures` dataset could look something like this:
@@ -65,4 +73,17 @@ Coding for our patients.
  
  ![alt text](public/runtime_average.png)
 
- *your explanation goes here, include prints wherever you find it appropriate or code snippets*
+ *Solution 2.1*
+```python
+	equipment_measurements = pd.concat([equipments,measurements],axis=1)
+	equipment_measurements['equipment_name'] = [('EQ'+ str(i)) for i in range(0,10)]
+	equipment_measurements = (equipment_measurements.set_index(['equipment_name',"sample_day","sample_month"]))
+```
+ ![alt text](public/dataframe.JPG)
+
+ *Solution 2.2*
+```python
+ 	equipment_measurements_filtered = equipment_measurements[(equipment_measurements['biguanide']>meglitinides_measurement) & equipment_measurements['sulfonylureas']>meglitinides_measurement]
+	equipment_measurements_filtered.groupby('sample_month').agg(['mean'])['runtime']
+```
+  ![alt text](public/avg.JPG)

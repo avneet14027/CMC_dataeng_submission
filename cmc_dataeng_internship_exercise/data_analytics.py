@@ -36,17 +36,38 @@ equipments.index.name = "equipment_name"
 
 # exercise 2.1 Get the random measurement of the equipment 2
 # for meglitinides sampled the 18th of Decembre
-equipment_measurements = None  # dataframe
-
-# your solution here
+'''
+Solution 2.1 
+First, concatenate the dataframes along the first axis, 
+so that we have all the equipments along with their corresposing measurements on the various days.
+Then the index was set using "equipment_name","sample_day","sample_month" to allow indexing using 
+a multiindex 
+Lastly, measurement was computed by selecting the relevant rows,cols indexed by the 3 columns
+as mentioned above. 
+'''
+equipment_measurements = pd.concat([equipments,measurements],axis=1)
+equipment_measurements['equipment_name'] = [('EQ'+ str(i)) for i in range(0,10)]
+equipment_measurements = (equipment_measurements.set_index(['equipment_name',"sample_day","sample_month"]))
 
 keys = ("EQ2", "18", "12")
 compound = "meglitinides"
 meglitinides_measurement = equipment_measurements.loc[keys, compound]  # float
+print(meglitinides_measurement)
 
 # exercise 2.2 Get the average runtime per month for the
 # equipments that measured quantities of sulfonylureas
 # and of biguanide that are greater than meglitinides_measurement
-avg_monthly_runtime = None  # dataframe
 
+avg_monthly_runtime = None  # dataframe
+'''
+Solutionn 2.2
+First, using the equipment_measurements dataframe, only those rows were selected
+for which the measured quantities of sulfonylureas and biguanide were greater than 
+the meglitinides_measurement computed before.
+Then the resulting dataframe was grouped according to the sample month and the mean was 
+computed using the agg function
+'''
 # your solution here
+equipment_measurements_filtered = equipment_measurements[(equipment_measurements['biguanide']>meglitinides_measurement) & equipment_measurements['sulfonylureas']>meglitinides_measurement]
+avg_monthly_runtime = equipment_measurements_filtered.groupby('sample_month').agg(['mean'])['runtime']
+print(avg_monthly_runtime)
